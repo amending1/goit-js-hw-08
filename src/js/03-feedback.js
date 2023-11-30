@@ -7,8 +7,11 @@ const submitButton = document.querySelector('button');
 
 // chcę pobrać stan z localStorage
 const savedState = localStorage.getItem('feedback-form-state');
-form.email.value = savedState.email;
-form.message.value = savedState.message;
+if (savedState) {
+  const parsedState = JSON.parse(savedState);
+  form.email.value = parsedState.email;
+  form.message.value = parsedState.message;
+}
 
 // funkcja throttle
 const updateLocalStorage = throttle(() => {
