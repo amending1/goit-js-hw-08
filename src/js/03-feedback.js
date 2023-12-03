@@ -6,7 +6,7 @@ const messageInput = form.elements.message;
 const submitButton = document.querySelector('button');
 
 // chcę pobrać stan z localStorage
-const savedState = localStorage.getItem('feedback-form-state');
+let savedState = localStorage.getItem('feedback-form-state');
 if (savedState) {
   const parsedState = JSON.parse(savedState);
   form.email.value = parsedState.email;
@@ -30,9 +30,15 @@ form.addEventListener('input', () => {
   updateLocalStorage();
 });
 
-// nasłuchiianie na submit
+// nasłuchiwianie na submit
 form.addEventListener('submit', event => {
   event.preventDefault();
+
+  // logowanie danych do konsoli
+  console.log(
+    'Form submitted with data:',
+    `${form.email.value}, ${form.message.value}`
+  );
 
   // czyszczenie pól
   form.email.value = '';
@@ -40,7 +46,4 @@ form.addEventListener('submit', event => {
 
   // usuwanie tego, co jest zapisane w localStorage
   localStorage.removeItem('feedback-form-state');
-
-  // logowanie danych do konsoli
-  console.log('Form submitted with data:', savedState);
 });
